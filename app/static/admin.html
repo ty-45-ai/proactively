@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>おんどく ボイス 管理</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="admin">
+  <header class="topbar">
+    <span class="brand">おんどく ボイス 管理画面</span>
+    <span id="engine-state" class="who"></span>
+  </header>
+  <main>
+    <section id="login" class="card narrow hidden">
+      <h1>研究者ログイン</h1>
+      <form id="login-form">
+        <label>管理者パスワード <input id="password" type="password" autocomplete="current-password" required></label>
+        <button class="primary" type="submit">ログイン</button>
+        <p id="login-error" class="error" role="alert"></p>
+      </form>
+    </section>
+
+    <section id="app" class="hidden">
+      <div class="card stats" id="stats"></div>
+      <nav class="tabs" id="tabs">
+        <button data-tab="participants" class="on" type="button">参加者</button>
+        <button data-tab="sentences" type="button">課題文</button>
+        <button data-tab="clips" type="button">生成音声</button>
+        <button data-tab="settings" type="button">設定・ログ</button>
+      </nav>
+
+      <div id="tab-participants" class="tab">
+        <div class="card">
+          <h2>参加者IDを発行</h2>
+          <form id="create-form" class="inline-form">
+            <label>人数 <input id="create-count" type="number" min="1" max="200" value="30" required></label>
+            <label>ID接頭辞 <input id="create-prefix" value="P" maxlength="8" pattern="[A-Za-z]*"></label>
+            <label>グループ（任意） <input id="create-group" maxlength="64" placeholder="例: 5年1組"></label>
+            <button class="primary" type="submit">発行する</button>
+          </form>
+          <div id="created" class="hidden">
+            <p class="notice warn">あいことばはこの画面でしか表示されません。CSVを保存し、氏名との対応表はアプリの外で管理してください。</p>
+            <button id="created-csv" type="button">CSVを保存</button>
+            <div class="table-wrap"><table id="created-table"></table></div>
+          </div>
+        </div>
+        <div class="card">
+          <h2>参加者一覧</h2>
+          <div class="table-wrap"><table id="participants-table"></table></div>
+        </div>
+      </div>
+
+      <div id="tab-sentences" class="tab hidden">
+        <div class="card">
+          <h2>課題文を追加</h2>
+          <form id="sentence-form">
+            <label>文章（1行に1文。複数行で一括追加） <textarea id="sentence-text" required></textarea></label>
+            <div class="inline-form">
+              <label>言語
+                <select id="sentence-lang">
+                  <option value="auto">自動判定</option>
+                  <option value="ja">日本語</option>
+                  <option value="en">英語</option>
+                </select>
+              </label>
+              <label>対象グループ（空欄 = 全員） <input id="sentence-group" maxlength="64"></label>
+              <button class="primary" type="submit">追加</button>
+            </div>
+          </form>
+        </div>
+        <div class="card">
+          <h2>課題文一覧</h2>
+          <p class="small">文章を変更すると、その文の音声は全員分つくり直されます。</p>
+          <div class="table-wrap"><table id="sentences-table"></table></div>
+        </div>
+      </div>
+
+      <div id="tab-clips" class="tab hidden">
+        <div class="card">
+          <div class="inline-form">
+            <label>参加者 <select id="clip-participant"><option value="">すべて</option></select></label>
+            <label>状態
+              <select id="clip-status">
+                <option value="">すべて</option>
+                <option value="done">完了</option>
+                <option value="queued">待機中</option>
+                <option value="processing">生成中</option>
+                <option value="failed">失敗</option>
+              </select>
+            </label>
+            <button id="clip-reload" type="button">更新</button>
+            <button id="clip-retry-failed" type="button">失敗をすべて再生成</button>
+          </div>
+          <audio id="admin-audio" controls class="hidden"></audio>
+          <div class="table-wrap"><table id="clips-table"></table></div>
+        </div>
+      </div>
+
+      <div id="tab-settings" class="tab hidden">
+        <div class="card">
+          <h2>声の登録で読ませる文章</h2>
+          <p class="small">6〜30秒ほどで読める、子どもが読みやすい文章にしてください。</p>
+          <textarea id="ref-script" rows="6"></textarea>
+          <label class="inline-form" style="margin-top:12px">
+            <input id="require-approval" type="checkbox" style="width:auto;display:inline">
+            生成音声を研究者が承認してから参加者に公開する
+          </label>
+          <button id="save-settings" class="primary" type="button">保存</button>
+          <span id="settings-saved" class="small"></span>
+        </div>
+        <div class="card">
+          <h2>利用ログ</h2>
+          <p>ログイン・声の登録・再生・自分の音読の録音/再生の記録をCSVで書き出します（音声そのものは含みません）。</p>
+          <a href="/api/admin/events.csv"><button type="button">ログCSVをダウンロード</button></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="/static/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+# Speech engine: Coqui XTTS-v2 (Japanese + English voice cloning). Install after requirements.txt.
+# torch/torchaudio are held below 2.9: from 2.9 torchaudio needs the separate torchcodec + FFmpeg
+# to read audio, which is exactly the install weight we want to avoid.
+coqui-tts[ja]>=0.27,<0.28
+torch>=2.2,<2.9
+torchaudio>=2.2,<2.9

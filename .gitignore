@@ -1,0 +1,11 @@
+# Participant data must never be committed
+data/
+*.wav
+*.mp3
+*.m4a
+.env
+
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/

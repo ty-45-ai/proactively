@@ -1,0 +1,147 @@
+:root {
+  --bg: #f7f5f0;
+  --surface: #ffffff;
+  --text: #1f2933;
+  --muted: #5f6b76;
+  --line: #dcd8cf;
+  --primary: #1f6feb;
+  --primary-ink: #ffffff;
+  --record: #d64545;
+  --good: #1e7f4f;
+  --warn: #9a6700;
+  --bad: #b42318;
+  --soft-blue: #e8f0fe;
+  --soft-green: #e6f4ea;
+  --soft-yellow: #fff4d6;
+  --soft-red: #fde8e6;
+  --radius: 14px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15181c;
+    --surface: #1f2329;
+    --text: #e8eaed;
+    --muted: #a3acb6;
+    --line: #353b43;
+    --primary: #5b9cff;
+    --primary-ink: #0b1220;
+    --record: #ff6b6b;
+    --good: #5fd39a;
+    --warn: #f2c14e;
+    --bad: #ff8a80;
+    --soft-blue: #1d2b44;
+    --soft-green: #17322a;
+    --soft-yellow: #3a3220;
+    --soft-red: #3d2020;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Hiragino Maru Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Meiryo", system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+}
+body.kid { font-size: 19px; }
+main { max-width: 760px; margin: 0 auto; padding: 16px; }
+.hidden { display: none !important; }
+.small { font-size: 0.85em; color: var(--muted); }
+.center { text-align: center; }
+
+.topbar {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; background: var(--surface); border-bottom: 1px solid var(--line);
+}
+.brand { font-weight: 700; }
+.who { margin-left: auto; color: var(--muted); }
+
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 20px; margin-bottom: 16px;
+}
+.card.narrow { max-width: 440px; margin: 40px auto; }
+h1 { font-size: 1.35em; margin: 0 0 12px; }
+h2 { font-size: 1.1em; margin: 0 0 12px; }
+
+label { display: block; margin-bottom: 14px; font-weight: 600; }
+input, select, textarea {
+  display: block; width: 100%; margin-top: 4px; padding: 10px 12px; font: inherit;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--text);
+}
+textarea { min-height: 90px; resize: vertical; }
+
+button {
+  font: inherit; cursor: pointer; border-radius: 10px; border: 1px solid var(--line);
+  background: var(--surface); color: var(--text); padding: 8px 14px;
+}
+button:disabled { opacity: 0.45; cursor: not-allowed; }
+button.big { padding: 14px 22px; font-size: 1.05em; font-weight: 700; min-width: 140px; border-radius: 999px; }
+button.primary { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
+button.record { background: var(--record); border-color: var(--record); color: #fff; }
+button.danger { color: var(--bad); border-color: var(--bad); }
+button.link { border: none; background: none; color: var(--primary); padding: 4px; text-decoration: underline; }
+.row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin: 12px 0; }
+
+.error { color: var(--bad); min-height: 1.2em; }
+.notice { padding: 10px 14px; border-radius: 10px; background: var(--soft-blue); }
+.notice.good { background: var(--soft-green); color: var(--good); }
+.notice.warn { background: var(--soft-yellow); color: var(--warn); }
+.notice.bad { background: var(--soft-red); color: var(--bad); }
+.notice-card { background: var(--soft-blue); border-color: transparent; }
+
+.steps { padding-left: 1.4em; margin: 0 0 12px; }
+.script {
+  white-space: pre-wrap; font-size: 1.25em; line-height: 2; padding: 16px 20px;
+  background: var(--soft-yellow); border-radius: var(--radius); margin-bottom: 16px;
+}
+.recorder { text-align: center; }
+.meter { height: 10px; background: var(--line); border-radius: 999px; overflow: hidden; max-width: 360px; margin: 0 auto; }
+#meter-bar { height: 100%; width: 0; background: var(--good); transition: width 0.08s linear; }
+.rec-time { font-variant-numeric: tabular-nums; color: var(--muted); margin-top: 6px; }
+audio { width: 100%; max-width: 420px; margin: 8px auto; display: block; }
+details.upload { margin-top: 18px; color: var(--muted); }
+details.upload summary { cursor: pointer; }
+
+.item .item-head { display: flex; justify-content: space-between; align-items: center; }
+.lang { font-size: 0.75em; font-weight: 700; padding: 2px 10px; border-radius: 999px; background: var(--soft-blue); }
+.lang.en { background: var(--soft-green); }
+.status { font-size: 0.8em; }
+.status.ok { color: var(--good); }
+.status.wait { color: var(--muted); }
+.item .text { font-size: 1.3em; line-height: 1.8; margin: 10px 0 14px; }
+.controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.speed { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.speed button { border: none; border-radius: 0; padding: 10px 14px; }
+.speed button.on { background: var(--soft-blue); font-weight: 700; }
+.practice { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.self-rec.recording { background: var(--record); border-color: var(--record); color: #fff; }
+
+/* admin */
+body.admin main { max-width: 1180px; }
+.tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 16px; }
+.tabs button.on { background: var(--primary); color: var(--primary-ink); border-color: var(--primary); }
+.stats { display: flex; gap: 16px; flex-wrap: wrap; }
+.stat { min-width: 110px; }
+.stat b { display: block; font-size: 1.5em; font-variant-numeric: tabular-nums; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.92em; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; white-space: nowrap; }
+td.num { font-variant-numeric: tabular-nums; }
+td .actions { display: flex; gap: 6px; flex-wrap: wrap; }
+td button { padding: 4px 10px; font-size: 0.9em; }
+.inline-form { display: flex; gap: 10px; flex-wrap: wrap; align-items: end; }
+.inline-form label { margin: 0; }
+.inline-form input, .inline-form select { width: auto; min-width: 120px; }
+.badge { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 0.85em; background: var(--soft-blue); }
+.badge.done { background: var(--soft-green); color: var(--good); }
+.badge.failed { background: var(--soft-red); color: var(--bad); }
+.badge.processing { background: var(--soft-yellow); color: var(--warn); }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.err-text { color: var(--bad); font-size: 0.85em; white-space: pre-wrap; max-width: 420px; }
