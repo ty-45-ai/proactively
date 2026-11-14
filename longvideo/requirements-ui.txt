@@ -1,0 +1,6 @@
+# GPU なしで画面・テスト（MockBackend）を動かすための最小構成。
+# 本番の GPU 環境では scripts/setup_runpod.sh が LongCat-Video の requirements.txt を入れる。
+numpy
+pillow
+streamlit>=1.40
+pytest
